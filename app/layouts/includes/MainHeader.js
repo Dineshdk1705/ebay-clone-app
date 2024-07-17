@@ -5,8 +5,19 @@ import Link from "next/link";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsChevronDown } from "react-icons/bs";
 import CategoryCard from "./CategoryCard";
+import { useState } from "react";
 
 const MainHeader = () => {
+  const [shopCategoryOpen, setShopCategoryOpen] = useState(false);
+
+  const handlePopupOpen = () => {
+    setShopCategoryOpen(true);
+  };
+
+  const handlePopupClose = () => {
+    setShopCategoryOpen(false);
+  };
+
   const categoryOptions = [
     "Antiques",
     "Art",
@@ -48,7 +59,11 @@ const MainHeader = () => {
                 />
               </Link>
               <div id="ShopByCategory" className="relative text-[14px]">
-                <div className="relative flex items-center text-[14px] text-[#333333] hover:text-[#0654ba] cursor-pointer">
+                <div
+                  className="relative flex items-center text-[14px] text-[#333333] hover:text-[#0654ba] cursor-pointer"
+                  onMouseOver={handlePopupOpen}
+                  onMouseLeave={handlePopupClose}
+                >
                   Shop by category
                   <div className="absolute z-999999 right-0">
                     <BsChevronDown
@@ -59,7 +74,11 @@ const MainHeader = () => {
                 </div>
                 <div
                   id="CategoryDropdown"
-                  className="hidden absolute flex bg-white w-[700px] h-[550px] text-[#333333] z-40 top-[44px] left-0 border shadow-lg"
+                  className={`absolute ${
+                    shopCategoryOpen ? "flex" : "hidden"
+                  } bg-white w-[700px] h-[550px] text-[#333333] z-40 top-[44px] left-0 border shadow-lg`}
+                  onMouseOver={handlePopupOpen}
+                  onMouseLeave={handlePopupClose}
                 >
                   <CategoryCard />
                 </div>
